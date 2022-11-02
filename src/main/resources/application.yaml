@@ -1,0 +1,21 @@
+spring:
+  sql:
+    init:
+      mode: always #never
+  r2dbc:
+    url: r2dbc:postgres://localhost:5432/lcdb
+    username: postgres
+    password: postgres
+logging:
+  level:
+    cane.brothers.spring: DEBUG
+    org.postgresql: DEBUG
+    #org.springframework.boot.autoconfigure.sql: DEBUG
+    org.springframework.r2dbc.connection.init: DEBUG
+    net.lecousin.reactive.data.relational.mapping: DEBUG
+#    io.r2dbc.postgresql.QUERY: DEBUG
+#    org:
+#      springframework:
+#        web: DEBUG
+#        data: DEBUG
+#        r2dbc: DEBUG

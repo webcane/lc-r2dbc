@@ -1,0 +1,3 @@
+entities:
+  - cane.brothers.spring.customer:
+      - Customer
