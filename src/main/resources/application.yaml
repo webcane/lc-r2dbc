@@ -11,8 +11,11 @@ logging:
     cane.brothers.spring: DEBUG
     org.postgresql: DEBUG
     #org.springframework.boot.autoconfigure.sql: DEBUG
+    org.springframework.test.context: INFO
     org.springframework.r2dbc.connection.init: DEBUG
     net.lecousin.reactive.data.relational.mapping: DEBUG
+#    org.springframework.data.repository: DEBUG
+#    org.springframework.r2dbc.core: DEBUG
 #    io.r2dbc.postgresql.QUERY: DEBUG
 #    org:
 #      springframework:
