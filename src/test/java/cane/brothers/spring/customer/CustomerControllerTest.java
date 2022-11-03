@@ -12,6 +12,7 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.reactive.server.WebTestClient;
 import org.springframework.web.reactive.config.EnableWebFlux;
 import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 
 @WebFluxTest(controllers = CustomerController.class)
@@ -73,13 +74,48 @@ class CustomerControllerTest {
   }
 
   @Test
-  @Disabled
-  void create() {
+  void test_create() {
+    var customerWithId = Customer.builder().id(1).firstName("K1").lastName("Abc").build();
+    var customer = Customer.builder().firstName("K1").lastName("Abc").build();
+
+    given(this.customerService.save(customer))
+        .willReturn(Mono.just(customerWithId));
+
+    webClient.post().uri("/customers")
+        .body(Mono.just(customer), Customer.class)
+        .accept(MediaType.APPLICATION_JSON)
+        .exchange()
+        .expectStatus().isOk()
+        .expectBody(Customer.class);
   }
 
   @Test
-  @Disabled
-  void get() {
+  void test_getPos() {
+    var customerId = 1;
+    var customerWithId = Customer.builder().id(customerId).firstName("K1").lastName("Abc").build();
+
+    given(this.customerService.get(Long.valueOf(customerId)))
+        .willReturn(Mono.just(customerWithId));
+
+    webClient.get().uri("/customers/{id}", customerId)
+        .accept(MediaType.APPLICATION_JSON)
+        .exchange()
+        .expectStatus().isOk()
+        .expectBody(Customer.class);
+  }
+
+  @Test
+  void test_getNeg() {
+    var customerId = 666;
+
+    given(this.customerService.get(Long.valueOf(customerId)))
+        .willReturn(Mono.empty());
+
+    webClient.get().uri("/customers/{id}", customerId)
+        .accept(MediaType.APPLICATION_JSON)
+        .exchange()
+        .expectStatus().isOk()
+        .expectBody(Customer.class);
   }
 
   @Test
