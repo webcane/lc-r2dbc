@@ -1,3 +1,10 @@
 spring:
   profiles:
     active: test
+  sql:
+    init:
+      mode: always #never
+  r2dbc:
+    url: r2dbc:postgres://localhost:5432/lcdb
+    username: postgres
+    password: postgres
